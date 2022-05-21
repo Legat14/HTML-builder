@@ -3,7 +3,7 @@ const path = require('path');
 
 const filePath = path.join(__dirname, 'console-text.txt');
 const output = fs.createWriteStream(filePath);
-const { stdin } = process;
+const { stdin, stdout } = process;
 
 console.log('Hello, user. Please enter your message, or type "exit" to quit program:');
 
@@ -22,6 +22,11 @@ stdin.on('data', chunk => {
 
 stdin.on('error', () => {
   console.log('Error while input');
+});
+
+process.on('SIGINT', () => {
+  stdout.write('Exit program. Bye!');
+  process.exit();
 });
 
 output.on('error', () => {
