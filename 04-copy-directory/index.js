@@ -20,15 +20,12 @@ fs.mkdir(filesCopyFolderPath, {
   emitter.emit('folderExists');
 });
 
-console.log(filesFolderPath, filesCopyFolderPath);
-
 emitter.on('folderExists', () => {
   fs.readdir(filesCopyFolderPath, (error, data) => {
     if (error) {
       console.log(error);
     } else {
       files = data;
-      console.log(files);
     }
     files.forEach(file => {
       const fileCopyPath = path.join(filesCopyFolderPath, file);
@@ -48,8 +45,8 @@ emitter.on('dirClean', () => {
       console.log(error);
     } else {
       files = data;
-      console.log(files);
     }
+    console.log('copied files:')
     files.forEach(file => {
       const filePath = path.join(filesFolderPath, file);
       const fileCopyPath = path.join(filesCopyFolderPath, file);
@@ -57,6 +54,7 @@ emitter.on('dirClean', () => {
         if (error) {
           console.log(error);
         }
+        console.log(file);
       });
     });
   });
