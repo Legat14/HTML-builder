@@ -20,12 +20,9 @@ fs.readdir(stylesFolderPath, (error, data) => {
       if (fileExt === '.css' && stats.isFile()) {
         const readableStream = fs.createReadStream(filePath, 'utf-8');
         readableStream.on('data', chunk => {
-          output.write(chunk);
-        });
-        readableStream.on('end', () => {
+          output.write(chunk + '\n\n');
         });
       }
     });
   });
-  emitter.emit('filesListReady');
 });
